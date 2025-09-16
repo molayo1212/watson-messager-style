@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watson Messenger</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+            background: #161616;
+            color: #f4f4f4;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: #161616;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #393939;
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1584px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: #f4f4f4;
+            font-size: 1.125rem;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-link {
+            color: #c6c6c6;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.15s ease;
+        }
+
+        .header-link:hover {
+            color: #f4f4f4;
+        }
+
+        .header-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 4rem);
+            position: relative;
+        }
+
+        /* Left Panel - Login Form */
+        .login-panel {
+            width: 50%;
+            padding: 4rem 3rem;
+            background: #161616;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .login-content {
+            max-width: 24rem;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .brand-section {
+            margin-bottom: 3rem;
+        }
+
+        .brand-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #0f62fe, #4589ff);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #f4f4f4;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+        }
+
+        .brand-subtitle {
+            font-size: 0.875rem;
+            color: #a8a8a8;
+            line-height: 1.29;
+        }
+
+        /* Form Styles */
+        .auth-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #c6c6c6;
+            margin-bottom: 0.5rem;
+            line-height: 1.34;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 2.5rem;
+            padding: 0 1rem;
+            background: #262626;
+            border: 1px solid #525252;
+            border-radius: 0;
+            font-size: 0.875rem;
+            color: #f4f4f4;
+            outline: none;
+            transition: all 0.15s ease;
+            margin-bottom: 1rem;
+        }
+
+        .form-input::placeholder {
+            color: #6f6f6f;
+        }
+
+        .form-input:focus {
+            border-color: #0f62fe;
+            box-shadow: inset 0 0 0 1px #0f62fe;
+        }
+
+        .dropdown-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-dropdown {
+            width: 100%;
+            height: 2.5rem;
+            padding: 0 2.5rem 0 1rem;
+            background: #262626;
+            border: 1px solid #525252;
+            color: #f4f4f4;
+            font-size: 0.875rem;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #c6c6c6;
+            pointer-events: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 3rem;
+            background: #0f62fe;
+            color: #ffffff;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            background: #0353e9;
+        }
+
+        .login-btn:disabled {
+            background: #525252;
+            cursor: not-allowed;
+        }
+
+        .btn-arrow {
+            width: 1rem;
+            height: 1rem;
+            fill: currentColor;
+        }
+
+        .forgot-link {
+            color: #4589ff;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.75rem;
+            margin-top: 0.125rem;
+            accent-color: #0f62fe;
+        }
+
+        .checkbox-label {
+            font-size: 0.875rem;
+            color: #c6c6c6;
+            line-height: 1.29;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: #8d8d8d;
+            font-size: 0.75rem;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #393939;
+        }
+
+        .divider span {
+            background: #161616;
+            padding: 0 1rem;
+        }
+
+        /* Social Buttons */
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .social-btn {
+            width: 100%;
+            height: 2.5rem;
+            background: #262626;
+            border: 1px solid #525252;
+            color: #f4f4f4;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 1rem;
+            gap: 0.75rem;
+            transition: background 0.15s ease;
+        }
+
+        .social-btn:hover {
+            background: #393939;
+        }
+
+        .social-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Right Panel - Promo */
+        .promo-panel {
+            width: 50%;
+            background: linear-gradient(135deg, #0f1419 0%, #1e2328 50%, #2a1810 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .promo-content {
+            padding: 4rem;
+            text-align: left;
+            position: relative;
+            z-index: 5;
+            max-width: 32rem;
+        }
+
+        .promo-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #f4f4f4;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .promo-subtitle {
+            font-size: 1.125rem;
+            color: #c6c6c6;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .promo-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid #4589ff;
+            color: #4589ff;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .promo-btn:hover {
+            background: #4589ff;
+            color: #ffffff;
+        }
+
+        /* 3D Graphics Background */
+        .graphics-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(15, 98, 254, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(69, 137, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(138, 63, 252, 0.2) 0%, transparent 50%);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .cube {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4589ff, #0f62fe);
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cube:nth-child(1) {
+            top: 15%;
+            left: 15%;
+            animation-delay: 0s;
+            transform: perspective(100px) rotateX(30deg) rotateY(45deg);
+        }
+
+        .cube:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+            transform: perspective(100px) rotateX(45deg) rotateY(30deg);
+            background: linear-gradient(135deg, #8a3ffc, #a56eff);
+        }
+
+        .cube:nth-child(3) {
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 4s;
+            transform: perspective(100px) rotateX(60deg) rotateY(15deg);
+            background: linear-gradient(135deg, #0072c3, #4589ff);
+        }
+
+        .sphere {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #4589ff);
+            opacity: 0.6;
+            animation: bounce 4s ease-in-out infinite;
+        }
+
+        .sphere:nth-child(4) {
+            top: 25%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .sphere:nth-child(5) {
+            bottom: 30%;
+            right: 40%;
+            animation-delay: 3s;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #8a3ffc);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) perspective(100px) rotateX(30deg) rotateY(45deg); }
+            50% { transform: translateY(-20px) perspective(100px) rotateX(30deg) rotateY(45deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        /* Loading State */
+        .login-btn--loading {
+            color: transparent;
+            position: relative;
+        }
+
+        .login-btn--loading::after {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            top: 50%;
+            left: 50%;
+            margin-left: -0.5rem;
+            margin-top: -0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 3rem;
+            color: #8d8d8d;
+            font-size: 0.75rem;
+            background: #161616;
+            border-top: 1px solid #393939;
+        }
+
+        .footer-content {
+            max-width: 1584px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-link {
+            color: #4589ff;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .login-panel {
+                width: 100%;
+                min-height: 60vh;
+            }
+            
+            .promo-panel {
+                width: 100%;
+                min-height: 40vh;
+            }
+            
+            .promo-content {
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .promo-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-panel {
+                padding: 2rem 1.5rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .header-nav {
+                gap: 1rem;
+            }
+            
+            .promo-panel {
+                min-height: 50vh;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 3px solid;
+            display: none;
+        }
+
+        .notification--error {
+            background: rgba(218, 30, 40, 0.1);
+            border-left-color: #da1e28;
+            color: #ff8389;
+        }
+
+        .notification--success {
+            background: rgba(36, 161, 72, 0.1);
+            border-left-color: #24a148;
+            color: #6fdc8c;
+        }
+
+        .notification__content {
+            font-size: 0.875rem;
+            line-height: 1.29;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Watson Messenger</div>
+            <nav class="header-nav">
+                <a href="#" class="header-link">
+                    <svg class="header-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 1L3 6v9h4v-6h2v6h4V6l-5-5z"/>
+                    </svg>
+                    카탈로그
+                </a>
+                <a href="#" class="header-link">
+                    <svg class="header-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8.5 1a.5.5 0 0 0-1 0v.793l-1.146 1.147a.5.5 0 0 0 .708.708L8 2.707l.938.94a.5.5 0 1 0 .708-.707L8.5 1.793V1z"/>
+                        <path d="M3 3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3z"/>
+                    </svg>
+                    비용 추정기
+                </a>
+                <a href="#" class="header-link">
+                    <svg class="header-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793l7 3.5 7-3.5V4.5A1.5 1.5 0 0 0 13.5 3h-11zM1 6.642V12.5A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5V6.642l-7 3.5-7-3.5z"/>
+                    </svg>
+                    문서
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Login Panel -->
+        <div class="login-panel">
+            <div class="login-content">
+                <!-- Brand Section -->
+                <div class="brand-section">
+                    <div class="brand-icon">W</div>
+                    <h1 class="brand-title">Watson Messenger</h1>
+                    <p class="brand-subtitle">계정이 없으신가요? <a href="#" style="color: #4589ff; text-decoration: none;">계정 작성</a></p>
+                </div>
+
+                <!-- Notifications -->
+                <div class="notification notification--error" id="errorNotification">
+                    <div class="notification__content" id="errorMessage"></div>
+                </div>
+                
+                <div class="notification notification--success" id="successNotification">
+                    <div class="notification__content" id="successMessage"></div>
+                </div>
+
+                <!-- Authentication Form -->
+                <form class="auth-section" onsubmit="handleLogin(event)">
+                    <div class="dropdown-wrapper">
+                        <select class="form-dropdown" id="authType">
+                            <option value="ibmid">IBMid</option>
+                            <option value="federated">Federated ID</option>
+                            <option value="onetime">One-time passcode</option>
+                        </select>
+                        <div class="dropdown-arrow"></div>
+                    </div>
+
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        placeholder="username@example.com" 
+                        id="emailInput"
+                        required
+                    >
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        계속
+                        <svg class="btn-arrow" viewBox="0 0 16 16">
+                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <a href="#" class="forgot-link">ID를 잊으셨나요?</a>
+
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox" id="saveId">
+                    <label for="saveId" class="checkbox-label">ID 저장</label>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span>Or</span>
+                </div>
+
+                <!-- Social Login -->
+                <div class="social-login">
+                    <button class="social-btn" onclick="socialLogin('redhat')">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#ee0000">
+                            <path d="M18.75 11.35c-1.63-.83-3.28-1.48-4.97-1.95.42-.7.78-1.46 1.08-2.25.64-1.68.85-3.33.65-4.77-.2-1.44-.93-2.58-2.09-3.24-.16-.09-.33-.16-.51-.21C11.89-.4 10.82-.1 9.95.51c-.87.61-1.47 1.54-1.84 2.68l-.01.03c-.02.07-.04.14-.06.21-.26.88-.38 1.82-.34 2.76.05.94.26 1.88.61 2.75.15.37.32.72.51 1.06-1.69.47-3.34 1.12-4.97 1.95-2.37 1.21-3.6 2.95-3.6 4.65 0 1.7 1.23 3.44 3.6 4.65 2.37 1.21 5.63 1.86 9.25 1.86s6.88-.65 9.25-1.86c2.37-1.21 3.6-2.95 3.6-4.65 0-1.7-1.23-3.44-3.6-4.65z"/>
+                        </svg>
+                        Continue with Red Hat
+                    </button>
+                    <button class="social-btn" onclick="socialLogin('google')">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promo Panel -->
+        <div class="promo-panel">
+            <div class="graphics-bg"></div>
+            <div class="floating-elements">
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="sphere"></div>
+                <div class="sphere"></div>
+            </div>
+            <div class="promo-content">
+                <h2 class="promo-title">IBM watsonx™</h2>
+                <p class="promo-subtitle">
+                    AI 기반 업무용 메신저로 생산성을 가속화하는 
+                    generative AI의 영향력을 핵심 워크플로우에서 경험하세요.
+                </p>
+                <button class="promo-btn" onclick="learnMore()">자세히 알아보기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                © Copyright IBM Corp. 2014, 2025. All rights reserved. 문의: 
+                <a href="#" class="footer-link">IBM 한국 개인정보 보호정책</a>
+            </div>
+            <div>
+                <a href="#" class="footer-link">쿠키 환경설정</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const authType = document.getElementById('authType').value;
+            
+            if (!email) {
+                showNotification('error', '이메일 주소를 입력해주세요.');
+                return;
+            }
+
+            // 로딩 상태
+            const btn = document.getElementById('loginBtn');
+            btn.classList.add('login-btn--loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // 데모용 로그인 검증
+                if (email === 'admin@watson.com') {
+                    showNotification('success', '로그인 성공! 대시보드로 이동합니다.');
+                    setTimeout(() => {
+                        console.log('대시보드로 이동');
+                        // 실제로는 window.location.href = '/dashboard'; 
+                    }, 1500);
+                } else {
+                    showNotification('error', '사용자를 찾을 수 없습니다. 이메일 주소를 확인해주세요.');
+                }
+                
+                btn.classList.remove('login-btn--loading');
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function socialLogin(provider) {
+            showNotification('success', `${provider} 로그인을 진행합니다...`);
+            console.log(`${provider} 소셜 로그인 실행`);
+        }
+
+        function learnMore() {
+            showNotification('success', 'Watson 제품 페이지로 이동합니다...');
+            console.log('Watson 제품 정보 페이지로 이동');
+        }
+
+        function showNotification(type, message) {
+            hideNotifications();
+            
+            const notification = type === 'error' 
+                ? document.getElementById('errorNotification')
+                : document.getElementById('successNotification');
+                
+            const messageEl = type === 'error'
+                ? document.getElementById('errorMessage')
+                : document.getElementById('successMessage');
+                
+            messageEl.textContent = message;
+            notification.style.display = 'block';
+            
+            // 자동 숨김 (에러 메시지만)
+            if (type === 'error') {
+                setTimeout(hideNotifications, 5000);
+            }
+        }
+
+        function hideNotifications() {
+            document.getElementById('errorNotification').style.display = 'none';
+            document.getElementById('successNotification').style.display = 'none';
+        }
+
+        // 엔터 키 처리
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.querySelector('.auth-section');
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // 페이지 로드 시 이메일 입력 필드에 포커스
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('emailInput').focus();
+        });
+    </script>
+</body>
+</html>

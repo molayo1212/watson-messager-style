@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Carbon Design System - Watson Messenger</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           IBM CARBON DESIGN SYSTEM - WATSON MESSENGER
+           공통 스타일 파일 (재사용 가능)
+        ======================================== */
+
+        /* CSS Custom Properties (Design Tokens) */
+        :root {
+            /* Background Colors */
+            --cds-background: #ffffff;
+            --cds-background-inverse: #161616;
+            --cds-background-brand: #0f62fe;
+            --cds-background-active: #c6c6c6;
+            --cds-background-hover: #e5e5e5;
+            --cds-background-selected: #e0e0e0;
+            --cds-background-disabled: #f4f4f4;
+            
+            /* Layer Colors */
+            --cds-layer-01: #f4f4f4;
+            --cds-layer-02: #ffffff;
+            --cds-layer-03: #ffffff;
+            --cds-layer-accent-01: #e0e0e0;
+            --cds-layer-accent-02: #e0e0e0;
+            --cds-layer-accent-03: #e0e0e0;
+            
+            /* Field Colors */
+            --cds-field-01: #f4f4f4;
+            --cds-field-02: #ffffff;
+            --cds-field-03: #ffffff;
+            --cds-field-hover-01: #e8e8e8;
+            --cds-field-hover-02: #e8e8e8;
+            --cds-field-hover-03: #e8e8e8;
+            
+            /* Border Colors */
+            --cds-border-subtle-01: #e0e0e0;
+            --cds-border-subtle-02: #e0e0e0;
+            --cds-border-subtle-03: #e0e0e0;
+            --cds-border-subtle-selected-01: #c6c6c6;
+            --cds-border-subtle-selected-02: #c6c6c6;
+            --cds-border-subtle-selected-03: #c6c6c6;
+            --cds-border-strong-01: #8d8d8d;
+            --cds-border-strong-02: #8d8d8d;
+            --cds-border-strong-03: #8d8d8d;
+            --cds-border-inverse: #393939;
+            --cds-border-interactive: #0f62fe;
+            --cds-border-disabled: #c6c6c6;
+            
+            /* Text Colors */
+            --cds-text-primary: #161616;
+            --cds-text-secondary: #525252;
+            --cds-text-placeholder: #a8a8a8;
+            --cds-text-helper: #6f6f6f;
+            --cds-text-error: #da1e28;
+            --cds-text-inverse: #ffffff;
+            --cds-text-on-color: #ffffff;
+            --cds-text-on-color-disabled: #8d8d8d;
+            --cds-text-disabled: #c6c6c6;
+            
+            /* Link Colors */
+            --cds-link-primary: #0f62fe;
+            --cds-link-primary-hover: #0043ce;
+            --cds-link-secondary: #0043ce;
+            --cds-link-visited: #8a3ffc;
+            --cds-link-inverse: #78a9ff;
+            
+            /* Icon Colors */
+            --cds-icon-primary: #161616;
+            --cds-icon-secondary: #525252;
+            --cds-icon-on-color: #ffffff;
+            --cds-icon-on-color-disabled: #8d8d8d;
+            --cds-icon-inverse: #ffffff;
+            --cds-icon-disabled: #c6c6c6;
+            
+            /* Support Colors */
+            --cds-support-error: #da1e28;
+            --cds-support-success: #24a148;
+            --cds-support-warning: #f1c21b;
+            --cds-support-info: #0043ce;
+            --cds-support-error-inverse: #ff8389;
+            --cds-support-success-inverse: #6fdc8c;
+            --cds-support-warning-inverse: #d2a106;
+            --cds-support-info-inverse: #4589ff;
+            
+            /* Focus */
+            --cds-focus: #0f62fe;
+            --cds-focus-inset: #ffffff;
+            --cds-focus-inverse: #ffffff;
+            
+            /* Interactive */
+            --cds-interactive: #0f62fe;
+            --cds-highlight: #d0e2ff;
+            --cds-overlay: rgba(22, 22, 22, 0.5);
+            --cds-toggle-off: #8d8d8d;
+            
+            /* Button Colors */
+            --cds-button-separator: #e0e0e0;
+            --cds-button-primary: #0f62fe;
+            --cds-button-primary-hover: #0353e9;
+            --cds-button-primary-active: #002d9c;
+            --cds-button-secondary: #393939;
+            --cds-button-secondary-hover: #4c4c4c;
+            --cds-button-secondary-active: #6f6f6f;
+            --cds-button-tertiary: #0f62fe;
+            --cds-button-tertiary-hover: #0353e9;
+            --cds-button-tertiary-active: #002d9c;
+            --cds-button-danger-primary: #da1e28;
+            --cds-button-danger-secondary: #da1e28;
+            --cds-button-danger-hover: #bc1a1a;
+            --cds-button-danger-active: #750e13;
+            --cds-button-disabled: #c6c6c6;
+            
+            /* Notification */
+            --cds-notification-background-error: #fff1f1;
+            --cds-notification-background-success: #f1f8ff;
+            --cds-notification-background-info: #edf5ff;
+            --cds-notification-background-warning: #fcf4d6;
+            --cds-notification-action-hover: rgba(22, 22, 22, 0.1);
+            --cds-notification-action-tertiary-inverse: #0f62fe;
+            --cds-notification-action-tertiary-inverse-active: #002d9c;
+            --cds-notification-action-tertiary-inverse-hover: #0353e9;
+            --cds-notification-action-tertiary-inverse-text: #0f62fe;
+            --cds-notification-action-tertiary-inverse-text-on-color-disabled: #8d8d8d;
+            
+            /* Spacing Scale (rem) */
+            --cds-spacing-01: 0.125rem;   /* 2px */
+            --cds-spacing-02: 0.25rem;    /* 4px */
+            --cds-spacing-03: 0.5rem;     /* 8px */
+            --cds-spacing-04: 0.75rem;    /* 12px */
+            --cds-spacing-05: 1rem;       /* 16px */
+            --cds-spacing-06: 1.5rem;     /* 24px */
+            --cds-spacing-07: 2rem;       /* 32px */
+            --cds-spacing-08: 2.5rem;     /* 40px */
+            --cds-spacing-09: 3rem;       /* 48px */
+            --cds-spacing-10: 4rem;       /* 64px */
+            --cds-spacing-11: 5rem;       /* 80px */
+            --cds-spacing-12: 6rem;       /* 96px */
+            --cds-spacing-13: 10rem;      /* 160px */
+            
+            /* Layout */
+            --cds-layout-01: 1rem;
+            --cds-layout-02: 1.5rem;
+            --cds-layout-03: 2rem;
+            --cds-layout-04: 3rem;
+            --cds-layout-05: 4rem;
+            --cds-layout-06: 6rem;
+            --cds-layout-07: 10rem;
+            
+            /* Container */
+            --cds-container-01: 1.5rem;   /* 24px */
+            --cds-container-02: 2rem;     /* 32px */
+            --cds-container-03: 2.5rem;   /* 40px */
+            --cds-container-04: 3rem;     /* 48px */
+            --cds-container-05: 4rem;     /* 64px */
+            
+            /* Icon Size */
+            --cds-icon-size-01: 1rem;     /* 16px */
+            --cds-icon-size-02: 1.25rem;  /* 20px */
+            
+            /* Typography */
+            --cds-productive-heading-01-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-01-font-size: 0.875rem;
+            --cds-productive-heading-01-font-weight: 600;
+            --cds-productive-heading-01-line-height: 1.29;
+            --cds-productive-heading-01-letter-spacing: 0.16px;
+            
+            --cds-productive-heading-02-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-02-font-size: 1rem;
+            --cds-productive-heading-02-font-weight: 600;
+            --cds-productive-heading-02-line-height: 1.375;
+            --cds-productive-heading-02-letter-spacing: 0px;
+            
+            --cds-productive-heading-03-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-03-font-size: 1.25rem;
+            --cds-productive-heading-03-font-weight: 400;
+            --cds-productive-heading-03-line-height: 1.4;
+            --cds-productive-heading-03-letter-spacing: 0px;
+            
+            --cds-productive-heading-04-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-04-font-size: 1.75rem;
+            --cds-productive-heading-04-font-weight: 400;
+            --cds-productive-heading-04-line-height: 1.29;
+            --cds-productive-heading-04-letter-spacing: 0px;
+            
+            --cds-productive-heading-05-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-05-font-size: 2rem;
+            --cds-productive-heading-05-font-weight: 400;
+            --cds-productive-heading-05-line-height: 1.25;
+            --cds-productive-heading-05-letter-spacing: 0px;
+            
+            --cds-productive-heading-06-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-06-font-size: 2.625rem;
+            --cds-productive-heading-06-font-weight: 300;
+            --cds-productive-heading-06-line-height: 1.199;
+            --cds-productive-heading-06-letter-spacing: 0px;
+            
+            --cds-productive-heading-07-font-family: 'IBM Plex Sans';
+            --cds-productive-heading-07-font-size: 3.375rem;
+            --cds-productive-heading-07-font-weight: 300;
+            --cds-productive-heading-07-line-height: 1.19;
+            --cds-productive-heading-07-letter-spacing: 0px;
+            
+            --cds-body-compact-01-font-family: 'IBM Plex Sans';
+            --cds-body-compact-01-font-size: 0.875rem;
+            --cds-body-compact-01-font-weight: 400;
+            --cds-body-compact-01-line-height: 1.29;
+            --cds-body-compact-01-letter-spacing: 0.16px;
+            
+            --cds-body-compact-02-font-family: 'IBM Plex Sans';
+            --cds-body-compact-02-font-size: 1rem;
+            --cds-body-compact-02-font-weight: 400;
+            --cds-body-compact-02-line-height: 1.375;
+            --cds-body-compact-02-letter-spacing: 0px;
+            
+            --cds-body-01-font-family: 'IBM Plex Sans';
+            --cds-body-01-font-size: 0.875rem;
+            --cds-body-01-font-weight: 400;
+            --cds-body-01-line-height: 1.43;
+            --cds-body-01-letter-spacing: 0.16px;
+            
+            --cds-body-02-font-family: 'IBM Plex Sans';
+            --cds-body-02-font-size: 1rem;
+            --cds-body-02-font-weight: 400;
+            --cds-body-02-line-height: 1.5;
+            --cds-body-02-letter-spacing: 0px;
+            
+            --cds-caption-01-font-family: 'IBM Plex Sans';
+            --cds-caption-01-font-size: 0.75rem;
+            --cds-caption-01-font-weight: 400;
+            --cds-caption-01-line-height: 1.34;
+            --cds-caption-01-letter-spacing: 0.32px;
+            
+            --cds-caption-02-font-family: 'IBM Plex Sans';
+            --cds-caption-02-font-size: 0.875rem;
+            --cds-caption-02-font-weight: 400;
+            --cds-caption-02-line-height: 1.29;
+            --cds-caption-02-letter-spacing: 0.32px;
+            
+            --cds-label-01-font-family: 'IBM Plex Sans';
+            --cds-label-01-font-size: 0.75rem;
+            --cds-label-01-font-weight: 400;
+            --cds-label-01-line-height: 1.34;
+            --cds-label-01-letter-spacing: 0.32px;
+            
+            --cds-label-02-font-family: 'IBM Plex Sans';
+            --cds-label-02-font-size: 0.875rem;
+            --cds-label-02-font-weight: 400;
+            --cds-label-02-line-height: 1.29;
+            --cds-label-02-letter-spacing: 0.16px;
+            
+            --cds-helper-text-01-font-family: 'IBM Plex Sans';
+            --cds-helper-text-01-font-size: 0.75rem;
+            --cds-helper-text-01-font-weight: 400;
+            --cds-helper-text-01-line-height: 1.17;
+            --cds-helper-text-01-letter-spacing: 0.32px;
+            
+            --cds-helper-text-02-font-family: 'IBM Plex Sans';
+            --cds-helper-text-02-font-size: 0.875rem;
+            --cds-helper-text-02-font-weight: 400;
+            --cds-helper-text-02-line-height: 1.29;
+            --cds-helper-text-02-letter-spacing: 0.16px;
+            
+            --cds-legal-01-font-family: 'IBM Plex Sans';
+            --cds-legal-01-font-size: 0.75rem;
+            --cds-legal-01-font-weight: 400;
+            --cds-legal-01-line-height: 1.17;
+            --cds-legal-01-letter-spacing: 0.32px;
+            
+            --cds-legal-02-font-family: 'IBM Plex Sans';
+            --cds-legal-02-font-size: 0.875rem;
+            --cds-legal-02-font-weight: 400;
+            --cds-legal-02-line-height: 1.29;
+            --cds-legal-02-letter-spacing: 0.16px;
+            
+            --cds-code-01-font-family: 'IBM Plex Mono';
+            --cds-code-01-font-size: 0.75rem;
+            --cds-code-01-font-weight: 400;
+            --cds-code-01-line-height: 1.17;
+            --cds-code-01-letter-spacing: 0.32px;
+            
+            --cds-code-02-font-family: 'IBM Plex Mono';
+            --cds-code-02-font-size: 0.875rem;
+            --cds-code-02-font-weight: 400;
+            --cds-code-02-line-height: 1.43;
+            --cds-code-02-letter-spacing: 0.32px;
+        }
+
+        /* Dark Theme Overrides */
+        [data-carbon-theme="g100"] {
+            --cds-background: #161616;
+            --cds-background-inverse: #ffffff;
+            --cds-layer-01: #262626;
+            --cds-layer-02: #393939;
+            --cds-layer-03: #525252;
+            --cds-field-01: #262626;
+            --cds-field-02: #393939;
+            --cds-field-03: #525252;
+            --cds-field-hover-01: #353535;
+            --cds-field-hover-02: #474747;
+            --cds-field-hover-03: #636363;
+            --cds-border-subtle-01: #393939;
+            --cds-border-subtle-02: #525252;
+            --cds-border-subtle-03: #6f6f6f;
+            --cds-border-strong-01: #6f6f6f;
+            --cds-border-strong-02: #8d8d8d;
+            --cds-border-strong-03: #a8a8a8;
+            --cds-text-primary: #f4f4f4;
+            --cds-text-secondary: #c6c6c6;
+            --cds-text-placeholder: #6f6f6f;
+            --cds-text-helper: #8d8d8d;
+            --cds-text-disabled: #525252;
+            --cds-link-primary: #78a9ff;
+            --cds-link-primary-hover: #a6c8ff;
+            --cds-link-secondary: #a6c8ff;
+            --cds-icon-primary: #f4f4f4;
+            --cds-icon-secondary: #c6c6c6;
+            --cds-icon-disabled: #525252;
+            --cds-support-error: #ff8389;
+            --cds-support-success: #6fdc8c;
+            --cds-support-warning: #d2a106;
+            --cds-support-info: #4589ff;
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+        ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--cds-body-01-font-family), 'Helvetica Neue', Arial, sans-serif;
+            font-size: var(--cds-body-01-font-size);
+            font-weight: var(--cds-body-01-font-weight);
+            line-height: var(--cds-body-01-line-height);
+            letter-spacing: var(--cds-body-01-letter-spacing);
+            color: var(--cds-text-primary);
+            background-color: var(--cds-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           TYPOGRAPHY CLASSES
+        ======================================== */
+        
+        .cds-productive-heading-01 {
+            font-family: var(--cds-productive-heading-01-font-family);
+            font-size: var(--cds-productive-heading-01-font-size);
+            font-weight: var(--cds-productive-heading-01-font-weight);
+            line-height: var(--cds-productive-heading-01-line-height);
+            letter-spacing: var(--cds-productive-heading-01-letter-spacing);
+        }
+
+        .cds-productive-heading-02 {
+            font-family: var(--cds-productive-heading-02-font-family);
+            font-size: var(--cds-productive-heading-02-font-size);
+            font-weight: var(--cds-productive-heading-02-font-weight);
+            line-height: var(--cds-productive-heading-02-line-height);
+            letter-spacing: var(--cds-productive-heading-02-letter-spacing);
+        }
+
+        .cds-productive-heading-03 {
+            font-family: var(--cds-productive-heading-03-font-family);
+            font-size: var(--cds-productive-heading-03-font-size);
+            font-weight: var(--cds-productive-heading-03-font-weight);
+            line-height: var(--cds-productive-heading-03-line-height);
+            letter-spacing: var(--cds-productive-heading-03-letter-spacing);
+        }
+
+        .cds-productive-heading-04 {
+            font-family: var(--cds-productive-heading-04-font-family);
+            font-size: var(--cds-productive-heading-04-font-size);
+            font-weight: var(--cds-productive-heading-04-font-weight);
+            line-height: var(--cds-productive-heading-04-line-height);
+            letter-spacing: var(--cds-productive-heading-04-letter-spacing);
+        }
+
+        .cds-productive-heading-05 {
+            font-family: var(--cds-productive-heading-05-font-family);
+            font-size: var(--cds-productive-heading-05-font-size);
+            font-weight: var(--cds-productive-heading-05-font-weight);
+            line-height: var(--cds-productive-heading-05-line-height);
+            letter-spacing: var(--cds-productive-heading-05-letter-spacing);
+        }
+
+        .cds-body-compact-01 {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+        }
+
+        .cds-body-compact-02 {
+            font-family: var(--cds-body-compact-02-font-family);
+            font-size: var(--cds-body-compact-02-font-size);
+            font-weight: var(--cds-body-compact-02-font-weight);
+            line-height: var(--cds-body-compact-02-line-height);
+            letter-spacing: var(--cds-body-compact-02-letter-spacing);
+        }
+
+        .cds-body-01 {
+            font-family: var(--cds-body-01-font-family);
+            font-size: var(--cds-body-01-font-size);
+            font-weight: var(--cds-body-01-font-weight);
+            line-height: var(--cds-body-01-line-height);
+            letter-spacing: var(--cds-body-01-letter-spacing);
+        }
+
+        .cds-body-02 {
+            font-family: var(--cds-body-02-font-family);
+            font-size: var(--cds-body-02-font-size);
+            font-weight: var(--cds-body-02-font-weight);
+            line-height: var(--cds-body-02-line-height);
+            letter-spacing: var(--cds-body-02-letter-spacing);
+        }
+
+        .cds-caption-01 {
+            font-family: var(--cds-caption-01-font-family);
+            font-size: var(--cds-caption-01-font-size);
+            font-weight: var(--cds-caption-01-font-weight);
+            line-height: var(--cds-caption-01-line-height);
+            letter-spacing: var(--cds-caption-01-letter-spacing);
+        }
+
+        .cds-caption-02 {
+            font-family: var(--cds-caption-02-font-family);
+            font-size: var(--cds-caption-02-font-size);
+            font-weight: var(--cds-caption-02-font-weight);
+            line-height: var(--cds-caption-02-line-height);
+            letter-spacing: var(--cds-caption-02-letter-spacing);
+        }
+
+        .cds-label-01 {
+            font-family: var(--cds-label-01-font-family);
+            font-size: var(--cds-label-01-font-size);
+            font-weight: var(--cds-label-01-font-weight);
+            line-height: var(--cds-label-01-line-height);
+            letter-spacing: var(--cds-label-01-letter-spacing);
+        }
+
+        .cds-label-02 {
+            font-family: var(--cds-label-02-font-family);
+            font-size: var(--cds-label-02-font-size);
+            font-weight: var(--cds-label-02-font-weight);
+            line-height: var(--cds-label-02-line-height);
+            letter-spacing: var(--cds-label-02-letter-spacing);
+        }
+
+        .cds-helper-text-01 {
+            font-family: var(--cds-helper-text-01-font-family);
+            font-size: var(--cds-helper-text-01-font-size);
+            font-weight: var(--cds-helper-text-01-font-weight);
+            line-height: var(--cds-helper-text-01-line-height);
+            letter-spacing: var(--cds-helper-text-01-letter-spacing);
+        }
+
+        .cds-helper-text-02 {
+            font-family: var(--cds-helper-text-02-font-family);
+            font-size: var(--cds-helper-text-02-font-size);
+            font-weight: var(--cds-helper-text-02-font-weight);
+            line-height: var(--cds-helper-text-02-line-height);
+            letter-spacing: var(--cds-helper-text-02-letter-spacing);
+        }
+
+        /* ========================================
+           FORM COMPONENTS (정확한 Carbon 스타일)
+        ======================================== */
+
+        /* Form Group */
+        .cds-form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: var(--cds-spacing-06);
+        }
+
+        /* Labels */
+        .cds-label {
+            font-family: var(--cds-label-01-font-family);
+            font-size: var(--cds-label-01-font-size);
+            font-weight: var(--cds-label-01-font-weight);
+            line-height: var(--cds-label-01-line-height);
+            letter-spacing: var(--cds-label-01-letter-spacing);
+            color: var(--cds-text-secondary);
+            margin-bottom: var(--cds-spacing-03);
+            display: block;
+        }
+
+        .cds-label--required::after {
+            content: '*';
+            color: var(--cds-support-error);
+            margin-left: var(--cds-spacing-02);
+        }
+
+        /* Text Input (정확한 Carbon 스타일) */
+        .cds-text-input {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+            color: var(--cds-text-primary);
+            background-color: var(--cds-field-01);
+            border: none;
+            border-bottom: 1px solid var(--cds-border-strong-01);
+            width: 100%;
+            height: 2.5rem;
+            padding: 0 var(--cds-spacing-05);
+            outline: none;
+            transition: background-color 110ms cubic-bezier(0.2, 0, 0.38, 0.9),
+                        outline 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+        }
+
+        .cds-text-input::placeholder {
+            color: var(--cds-text-placeholder);
+            opacity: 1;
+        }
+
+        .cds-text-input:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: -2px;
+        }
+
+        .cds-text-input:disabled {
+            background-color: var(--cds-background-disabled);
+            border-bottom-color: var(--cds-border-disabled);
+            color: var(--cds-text-disabled);
+            cursor: not-allowed;
+        }
+
+        .cds-text-input--invalid {
+            outline: 2px solid var(--cds-support-error);
+            outline-offset: -2px;
+        }
+
+        .cds-text-input--warning {
+            outline: 2px solid var(--cds-support-warning);
+            outline-offset: -2px;
+        }
+
+        /* Password Input */
+        .cds-password-input {
+            position: relative;
+        }
+
+        .cds-password-input__toggle {
+            position: absolute;
+            right: var(--cds-spacing-05);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--cds-icon-secondary);
+            width: var(--cds-spacing-05);
+            height: var(--cds-spacing-05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .cds-password-input__toggle:hover {
+            color: var(--cds-icon-primary);
+        }
+
+        .cds-password-input__toggle:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: 2px;
+        }
+
+        /* Select */
+        .cds-select {
+            position: relative;
+        }
+
+        .cds-select-input {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+            color: var(--cds-text-primary);
+            background-color: var(--cds-field-01);
+            border: none;
+            border-bottom: 1px solid var(--cds-border-strong-01);
+            width: 100%;
+            height: 2.5rem;
+            padding: 0 2.5rem 0 var(--cds-spacing-05);
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            transition: background-color 110ms cubic-bezier(0.2, 0, 0.38, 0.9),
+                        outline 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+        }
+
+        .cds-select-input:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: -2px;
+        }
+
+        .cds-select__arrow {
+            position: absolute;
+            right: var(--cds-spacing-05);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--cds-icon-primary);
+            pointer-events: none;
+        }
+
+        /* Checkbox */
+        .cds-checkbox {
+            appearance: none;
+            width: var(--cds-spacing-05);
+            height: var(--cds-spacing-05);
+            border: 1px solid var(--cds-border-strong-01);
+            background-color: var(--cds-field-01);
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            margin: 0;
+        }
+
+        .cds-checkbox:checked {
+            background-color: var(--cds-interactive);
+            border-color: var(--cds-interactive);
+        }
+
+        .cds-checkbox:checked::before {
+            content: '';
+            position: absolute;
+            left: 0.1875rem;
+            top: 0.0625rem;
+            width: 0.375rem;
+            height: 0.5625rem;
+            border: solid var(--cds-icon-on-color);
+            border-width: 0 0.125rem 0.125rem 0;
+            transform: rotate(45deg);
+        }
+
+        .cds-checkbox:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: 2px;
+        }
+
+        .cds-checkbox:disabled {
+            background-color: var(--cds-background-disabled);
+            border-color: var(--cds-border-disabled);
+            cursor: not-allowed;
+        }
+
+        .cds-checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--cds-spacing-05);
+        }
+
+        .cds-checkbox-label {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+            color: var(--cds-text-primary);
+            margin-left: var(--cds-spacing-04);
+            cursor: pointer;
+        }
+
+        .cds-checkbox-label a {
+            color: var(--cds-link-primary);
+            text-decoration: none;
+        }
+
+        .cds-checkbox-label a:hover {
+            color: var(--cds-link-primary-hover);
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           BUTTON COMPONENTS
+        ======================================== */
+
+        .cds-btn {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            transition: all 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
+            vertical-align: top;
+            max-width: 18.75rem;
+            min-height: 3rem;
+            padding: calc(0.875rem - 3px) 63px calc(0.875rem - 3px) var(--cds-spacing-05);
+            margin: 0;
+        }
+
+        .cds-btn--primary {
+            background-color: var(--cds-button-primary);
+            border: 1px solid transparent;
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--primary:hover:not(:disabled) {
+            background-color: var(--cds-button-primary-hover);
+        }
+
+        .cds-btn--primary:focus {
+            border-color: var(--cds-focus);
+            box-shadow: inset 0 0 0 1px var(--cds-focus), inset 0 0 0 2px var(--cds-background);
+        }
+
+        .cds-btn--primary:active:not(:disabled) {
+            background-color: var(--cds-button-primary-active);
+        }
+
+        .cds-btn--secondary {
+            background-color: var(--cds-button-secondary);
+            border: 1px solid transparent;
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--secondary:hover:not(:disabled) {
+            background-color: var(--cds-button-secondary-hover);
+        }
+
+        .cds-btn--secondary:focus {
+            border-color: var(--cds-focus);
+            box-shadow: inset 0 0 0 1px var(--cds-focus), inset 0 0 0 2px var(--cds-background);
+        }
+
+        .cds-btn--secondary:active:not(:disabled) {
+            background-color: var(--cds-button-secondary-active);
+        }
+
+        .cds-btn--tertiary {
+            background-color: transparent;
+            border: 1px solid var(--cds-button-tertiary);
+            color: var(--cds-button-tertiary);
+        }
+
+        .cds-btn--tertiary:hover:not(:disabled) {
+            background-color: var(--cds-button-tertiary);
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--tertiary:focus {
+            background-color: var(--cds-button-tertiary);
+            border-color: var(--cds-focus);
+            box-shadow: inset 0 0 0 1px var(--cds-focus), inset 0 0 0 2px var(--cds-background);
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--tertiary:active:not(:disabled) {
+            background-color: var(--cds-button-tertiary-active);
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--danger-primary {
+            background-color: var(--cds-button-danger-primary);
+            border: 1px solid transparent;
+            color: var(--cds-text-on-color);
+        }
+
+        .cds-btn--danger-primary:hover:not(:disabled) {
+            background-color: var(--cds-button-danger-hover);
+        }
+
+        .cds-btn--danger-primary:focus {
+            border-color: var(--cds-focus);
+            box-shadow: inset 0 0 0 1px var(--cds-focus), inset 0 0 0 2px var(--cds-background);
+        }
+
+        .cds-btn--danger-primary:active:not(:disabled) {
+            background-color: var(--cds-button-danger-active);
+        }
+
+        .cds-btn:disabled {
+            background-color: var(--cds-button-disabled);
+            border-color: var(--cds-button-disabled);
+            color: var(--cds-text-on-color-disabled);
+            cursor: not-allowed;
+        }
+
+        .cds-btn--sm {
+            min-height: 2rem;
+            padding: calc(0.375rem - 3px) 63px calc(0.375rem - 3px) var(--cds-spacing-04);
+        }
+
+        .cds-btn--lg {
+            min-height: 4rem;
+            padding: calc(1rem - 3px) var(--cds-spacing-05);
+        }
+
+        .cds-btn--xl {
+            min-height: 5rem;
+            padding: calc(1rem - 3px) var(--cds-spacing-05);
+        }
+
+        .cds-btn--expressive {
+            min-height: 3rem;
+            padding: calc(0.875rem - 3px) var(--cds-spacing-10) calc(0.875rem - 3px) var(--cds-spacing-05);
+        }
+
+        /* Button with icon */
+        .cds-btn__icon {
+            width: var(--cds-spacing-05);
+            height: var(--cds-spacing-05);
+            margin-left: var(--cds-spacing-03);
+            flex-shrink: 0;
+        }
+
+        /* Loading state */
+        .cds-btn--loading {
+            color: transparent;
+        }
+
+        .cds-btn--loading::after {
+            content: '';
+            position: absolute;
+            width: var(--cds-spacing-05);
+            height: var(--cds-spacing-05);
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: cds-loading-rotate 1s linear infinite;
+            top: 50%;
+            left: 50%;
+            margin-left: calc(-1 * var(--cds-spacing-05) / 2);
+            margin-top: calc(-1 * var(--cds-spacing-05) / 2);
+        }
+
+        @keyframes cds-loading-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+           NOTIFICATION COMPONENTS
+        ======================================== */
+
+        .cds-inline-notification {
+            display: flex;
+            width: 100%;
+            min-height: 3rem;
+            min-width: 20rem;
+            margin-bottom: var(--cds-spacing-05);
+        }
+
+        .cds-inline-notification__details {
+            display: flex;
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .cds-inline-notification__icon {
+            flex-shrink: 0;
+            margin-top: var(--cds-spacing-04);
+            margin-right: var(--cds-spacing-04);
+            margin-left: var(--cds-spacing-04);
+        }
+
+        .cds-inline-notification__text-wrapper {
+            display: flex;
+            flex-direction: column;
+            padding: var(--cds-spacing-04) 0;
+            margin-right: var(--cds-spacing-04);
+        }
+
+        .cds-inline-notification__title {
+            font-family: var(--cds-productive-heading-01-font-family);
+            font-size: var(--cds-productive-heading-01-font-size);
+            font-weight: var(--cds-productive-heading-01-font-weight);
+            line-height: var(--cds-productive-heading-01-line-height);
+            letter-spacing: var(--cds-productive-heading-01-letter-spacing);
+            margin-bottom: 0;
+        }
+
+        .cds-inline-notification__subtitle {
+            font-family: var(--cds-body-compact-01-font-family);
+            font-size: var(--cds-body-compact-01-font-size);
+            font-weight: var(--cds-body-compact-01-font-weight);
+            line-height: var(--cds-body-compact-01-line-height);
+            letter-spacing: var(--cds-body-compact-01-letter-spacing);
+            color: var(--cds-text-primary);
+            margin-top: 0;
+            word-break: break-word;
+        }
+
+        .cds-inline-notification--error {
+            background-color: var(--cds-notification-background-error);
+            border-left: 3px solid var(--cds-support-error);
+        }
+
+        .cds-inline-notification--error .cds-inline-notification__title {
+            color: var(--cds-support-error);
+        }
+
+        .cds-inline-notification--success {
+            background-color: var(--cds-notification-background-success);
+            border-left: 3px solid var(--cds-support-success);
+        }
+
+        .cds-inline-notification--success .cds-inline-notification__title {
+            color: var(--cds-support-success);
+        }
+
+        .cds-inline-notification--info {
+            background-color: var(--cds-notification-background-info);
+            border-left: 3px solid var(--cds-support-info);
+        }
+
+        .cds-inline-notification--info .cds-inline-notification__title {
+            color: var(--cds-support-info);
+        }
+
+        .cds-inline-notification--warning {
+            background-color: var(--cds-notification-background-warning);
+            border-left: 3px solid var(--cds-support-warning);
+        }
+
+        .cds-inline-notification--warning .cds-inline-notification__title {
+            color: var(--cds-support-warning);
+        }
+
+        /* ========================================
+           WATSON MESSENGER 특화 컴포넌트
+        ======================================== */
+
+        /* 다크 테마 적용 */
+        .watson-dark-theme {
+            --cds-background: #161616;
+            --cds-background-inverse: #ffffff;
+            --cds-layer-01: #262626;
+            --cds-layer-02: #393939;
+            --cds-layer-03: #525252;
+            --cds-field-01: #262626;
+            --cds-field-02: #393939;
+            --cds-field-03: #525252;
+            --cds-field-hover-01: #353535;
+            --cds-field-hover-02: #474747;
+            --cds-field-hover-03: #636363;
+            --cds-border-subtle-01: #393939;
+            --cds-border-subtle-02: #525252;
+            --cds-border-subtle-03: #6f6f6f;
+            --cds-border-strong-01: #6f6f6f;
+            --cds-border-strong-02: #8d8d8d;
+            --cds-border-strong-03: #a8a8a8;
+            --cds-text-primary: #f4f4f4;
+            --cds-text-secondary: #c6c6c6;
+            --cds-text-placeholder: #6f6f6f;
+            --cds-text-helper: #8d8d8d;
+            --cds-text-disabled: #525252;
+            --cds-link-primary: #78a9ff;
+            --cds-link-primary-hover: #a6c8ff;
+            --cds-link-secondary: #a6c8ff;
+            --cds-icon-primary: #f4f4f4;
+            --cds-icon-secondary: #c6c6c6;
+            --cds-icon-disabled: #525252;
+            --cds-support-error: #ff8389;
+            --cds-support-success: #6fdc8c;
+            --cds-support-warning: #d2a106;
+            --cds-support-info: #4589ff;
+        }
+
+        /* Watson 브랜드 색상 */
+        .watson-brand-gradient {
+            background: linear-gradient(135deg, #0f62fe, #4589ff);
+        }
+
+        .watson-ai-gradient {
+            background: linear-gradient(135deg, #8a3ffc, #a56eff);
+        }
+
+        /* Watson 로고/아이콘 */
+        .watson-logo {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #0f62fe, #4589ff);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cds-text-on-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* 3D 애니메이션 요소들 */
+        .watson-3d-cube {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4589ff, #0f62fe);
+            opacity: 0.8;
+            animation: watson-float 6s ease-in-out infinite;
+        }
+
+        .watson-3d-sphere {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #4589ff);
+            opacity: 0.6;
+            animation: watson-bounce 4s ease-in-out infinite;
+        }
+
+        @keyframes watson-float {
+            0%, 100% { transform: translateY(0px) perspective(100px) rotateX(30deg) rotateY(45deg); }
+            50% { transform: translateY(-20px) perspective(100px) rotateX(30deg) rotateY(45deg); }
+        }
+
+        @keyframes watson-bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        /* 그라데이션 배경 */
+        .watson-promo-bg {
+            background: linear-gradient(135deg, #0f1419 0%, #1e2328 50%, #2a1810 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .watson-promo-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(15, 98, 254, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(69, 137, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(138, 63, 252, 0.2) 0%, transparent 50%);
+        }
+
+        /* ========================================
+           UTILITIES
+        ======================================== */
+
+        .cds-sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+            white-space: nowrap;
+        }
+
+        .cds-hidden {
+            display: none !important;
+        }
+
+        .cds-visually-hidden {
+            position: absolute !important;
+            overflow: hidden;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+            clip: rect(1px, 1px, 1px, 1px);
+            white-space: nowrap;
+        }
+
+        /* 반응형 유틸리티 */
+        @media (max-width: 42rem) {
+            .cds-sm-hidden {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 42rem) and (max-width: 66rem) {
+            .cds-md-hidden {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 66rem) {
+            .cds-lg-hidden {
+                display: none !important;
+            }
+        }
+
+        /* ========================================
+           DEMO 섹션
+        ======================================== */
+        
+        .demo-section {
+            padding: var(--cds-spacing-09);
+            margin-bottom: var(--cds-spacing-08);
+            border: 1px solid var(--cds-border-subtle-01);
+        }
+
+        .demo-title {
+            margin-bottom: var(--cds-spacing-06);
+            padding-bottom: var(--cds-spacing-03);
+            border-bottom: 1px solid var(--cds-border-subtle-01);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--cds-spacing-06);
+            margin-bottom: var(--cds-spacing-06);
+        }
+
+        .demo-item {
+            padding: var(--cds-spacing-05);
+            background: var(--cds-layer-01);
+            border: 1px solid var(--cds-border-subtle-01);
+        }
+
+        /* 다크/라이트 테마 토글을 위한 스타일 */
+        body.watson-dark-theme {
+            background-color: var(--cds-background);
+            color: var(--cds-text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <header style="margin-bottom: 3rem;">
+            <h1 class="cds-productive-heading-05">IBM Carbon Design System</h1>
+            <p class="cds-body-02" style="margin-top: 1rem; color: var(--cds-text-secondary);">
+                Watson Messenger를 위한 완전한 Carbon Design System 구현체
+            </p>
+            <button onclick="toggleTheme()" class="cds-btn cds-btn--tertiary" style="margin-top: 1rem;">
+                테마 전환 (라이트/다크)
+            </button>
+        </header>
+
+        <!-- Typography Demo -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">Typography</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="cds-productive-heading-01">Productive Heading 01</h3>
+                    <h3 class="cds-productive-heading-02">Productive Heading 02</h3>
+                    <h3 class="cds-productive-heading-03">Productive Heading 03</h3>
+                </div>
+                <div class="demo-item">
+                    <p class="cds-body-compact-01">Body Compact 01 - 가나다라마바사아자차카타파하</p>
+                    <p class="cds-body-compact-02">Body Compact 02 - 가나다라마바사아자차카타파하</p>
+                    <p class="cds-body-01">Body 01 - 가나다라마바사아자차카타파하</p>
+                    <p class="cds-body-02">Body 02 - 가나다라마바사아자차카타파하</p>
+                </div>
+                <div class="demo-item">
+                    <p class="cds-caption-01">Caption 01 - 작은 텍스트</p>
+                    <p class="cds-caption-02">Caption 02 - 작은 텍스트</p>
+                    <p class="cds-label-01">Label 01 - 폼 라벨</p>
+                    <p class="cds-label-02">Label 02 - 폼 라벨</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Components Demo -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">Form Components</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="cds-form-group">
+                        <label class="cds-label cds-label--required">이메일 주소</label>
+                        <input type="email" class="cds-text-input" placeholder="name@company.com">
+                    </div>
+                    <div class="cds-form-group">
+                        <label class="cds-label">비밀번호</label>
+                        <div class="cds-password-input">
+                            <input type="password" class="cds-text-input" placeholder="비밀번호 입력">
+                            <button type="button" class="cds-password-input__toggle">👁</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="cds-form-group">
+                        <label class="cds-label">국가 선택</label>
+                        <div class="cds-select">
+                            <select class="cds-select-input">
+                                <option>대한민국</option>
+                                <option>미국</option>
+                                <option>일본</option>
+                            </select>
+                            <div class="cds-select__arrow"></div>
+                        </div>
+                    </div>
+                    <div class="cds-checkbox-wrapper">
+                        <input type="checkbox" class="cds-checkbox" id="demo-checkbox">
+                        <label class="cds-checkbox-label" for="demo-checkbox">
+                            이용약관에 동의합니다
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Demo -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">Buttons</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h4 class="cds-productive-heading-01" style="margin-bottom: 1rem;">Primary Buttons</h4>
+                    <button class="cds-btn cds-btn--primary">Primary Button</button>
+                    <button class="cds-btn cds-btn--primary cds-btn--sm" style="margin-left: 1rem;">Small</button>
+                </div>
+                <div class="demo-item">
+                    <h4 class="cds-productive-heading-01" style="margin-bottom: 1rem;">Secondary & Tertiary</h4>
+                    <button class="cds-btn cds-btn--secondary">Secondary</button>
+                    <button class="cds-btn cds-btn--tertiary" style="margin-left: 1rem;">Tertiary</button>
+                </div>
+                <div class="demo-item">
+                    <h4 class="cds-productive-heading-01" style="margin-bottom: 1rem;">States</h4>
+                    <button class="cds-btn cds-btn--primary" disabled>Disabled</button>
+                    <button class="cds-btn cds-btn--primary cds-btn--loading" style="margin-left: 1rem;">Loading</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Demo -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">Notifications</h2>
+            <div class="demo-item">
+                <div class="cds-inline-notification cds-inline-notification--error">
+                    <div class="cds-inline-notification__details">
+                        <div class="cds-inline-notification__text-wrapper">
+                            <p class="cds-inline-notification__title">오류</p>
+                            <p class="cds-inline-notification__subtitle">이메일 주소가 올바르지 않습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cds-inline-notification cds-inline-notification--success">
+                    <div class="cds-inline-notification__details">
+                        <div class="cds-inline-notification__text-wrapper">
+                            <p class="cds-inline-notification__title">성공</p>
+                            <p class="cds-inline-notification__subtitle">계정이 성공적으로 생성되었습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cds-inline-notification cds-inline-notification--warning">
+                    <div class="cds-inline-notification__details">
+                        <div class="cds-inline-notification__text-wrapper">
+                            <p class="cds-inline-notification__title">경고</p>
+                            <p class="cds-inline-notification__subtitle">비밀번호가 곧 만료됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cds-inline-notification cds-inline-notification--info">
+                    <div class="cds-inline-notification__details">
+                        <div class="cds-inline-notification__text-wrapper">
+                            <p class="cds-inline-notification__title">정보</p>
+                            <p class="cds-inline-notification__subtitle">새로운 기능이 추가되었습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Watson 특화 컴포넌트 Demo -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">Watson Messenger Components</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h4 class="cds-productive-heading-01" style="margin-bottom: 1rem;">Watson Logo</h4>
+                    <div class="watson-logo">W</div>
+                </div>
+                <div class="demo-item watson-promo-bg" style="position: relative; min-height: 200px; color: #f4f4f4;">
+                    <div class="watson-3d-cube" style="top: 20%; left: 20%; transform: perspective(100px) rotateX(30deg) rotateY(45deg);"></div>
+                    <div class="watson-3d-sphere" style="top: 50%; right: 20%;"></div>
+                    <div style="position: relative; z-index: 10; padding: 2rem;">
+                        <h4 class="cds-productive-heading-02">Watson AI Background</h4>
+                        <p class="cds-body-01" style="margin-top: 1rem;">3D 애니메이션과 그라데이션 배경</p>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h4 class="cds-productive-heading-01" style="margin-bottom: 1rem;">Brand Gradients</h4>
+                    <div class="watson-brand-gradient" style="width: 100px; height: 50px; margin-bottom: 1rem; border-radius: 4px;"></div>
+                    <div class="watson-ai-gradient" style="width: 100px; height: 50px; border-radius: 4px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Guide -->
+        <section class="demo-section">
+            <h2 class="cds-productive-heading-03 demo-title">사용 가이드</h2>
+            <div class="demo-item">
+                <h3 class="cds-productive-heading-02" style="margin-bottom: 1rem;">이 스타일 시트 사용하기</h3>
+                
+                <h4 class="cds-productive-heading-01" style="margin: 1.5rem 0 0.5rem 0;">1. 기본 사용법</h4>
+                <p class="cds-body-01" style="margin-bottom: 1rem;">
+                    이 스타일 시트를 HTML 파일에 포함하거나 CSS를 복사해서 사용하세요.
+                </p>
+                
+                <h4 class="cds-productive-heading-01" style="margin: 1.5rem 0 0.5rem 0;">2. 다크 테마 적용</h4>
+                <p class="cds-body-01" style="margin-bottom: 1rem;">
+                    <code>&lt;body class="watson-dark-theme"&gt;</code>를 추가하면 다크 테마가 적용됩니다.
+                </p>
+                
+                <h4 class="cds-productive-heading-01" style="margin: 1.5rem 0 0.5rem 0;">3. 주요 클래스</h4>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li class="cds-body-01" style="margin-bottom: 0.5rem;"><code>.cds-text-input</code> - Carbon 스타일 텍스트 입력</li>
+                    <li class="cds-body-01" style="margin-bottom: 0.5rem;"><code>.cds-btn--primary</code> - 기본 버튼</li>
+                    <li class="cds-body-01" style="margin-bottom: 0.5rem;"><code>.cds-inline-notification--error</code> - 에러 알림</li>
+                    <li class="cds-body-01" style="margin-bottom: 0.5rem;"><code>.watson-logo</code> - Watson 로고</li>
+                </ul>
+                
+                <h4 class="cds-productive-heading-01" style="margin: 1.5rem 0 0.5rem 0;">4. 재사용 가능한 변수</h4>
+                <p class="cds-body-01" style="margin-bottom: 1rem;">
+                    모든 색상, 간격, 타이포그래피가 CSS Custom Properties로 정의되어 있어 쉽게 커스터마이징할 수 있습니다.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('watson-dark-theme');
+            
+            // 테마 상태를 localStorage에 저장 (선택사항)
+            const isDark = document.body.classList.contains('watson-dark-theme');
+            localStorage.setItem('watson-theme', isDark ? 'dark' : 'light');
+        }
+
+        // 페이지 로드 시 저장된 테마 적용
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('watson-theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('watson-dark-theme');
+            }
+        });
+
+        // 버튼 로딩 상태 데모
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cds-btn--loading')) {
+                return; // 이미 로딩 중이면 무시
+            }
+            
+            if (e.target.classList.contains('cds-btn') && e.target.textContent.includes('Loading')) {
+                e.target.classList.add('cds-btn--loading');
+                e.target.disabled = true;
+                
+                setTimeout(() => {
+                    e.target.classList.remove('cds-btn--loading');
+                    e.target.disabled = false;
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
+                
