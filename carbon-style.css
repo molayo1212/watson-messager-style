@@ -979,6 +979,17 @@
             --cds-support-success: #6fdc8c;
             --cds-support-warning: #d2a106;
             --cds-support-info: #4589ff;
+
+             /* 폼 컨트롤 전용 다크 테마 변수 추가 */
+            --cds-field-dark-01: #262626;
+            --cds-field-dark-02: #393939;
+            --cds-field-dark-03: #525252;
+            --cds-border-dark-01: #525252;
+            --cds-border-dark-02: #6f6f6f;
+            --cds-border-dark-03: #8d8d8d;
+            --cds-text-dark-primary: #f4f4f4;
+            --cds-text-dark-secondary: #c6c6c6;
+            --cds-text-dark-placeholder: #6f6f6f;
         }
 
         /* Watson 브랜드 색상 */
@@ -1138,4 +1149,64 @@
         body.watson-dark-theme {
             background-color: var(--cds-background);
             color: var(--cds-text-primary);
+
         }
+
+        /* 다크 테마에서 텍스트 입력 컨트롤 오버라이드 */
+        .watson-dark-theme .cds-text-input {
+            color: var(--cds-text-dark-primary);
+            background-color: var(--cds-field-dark-01);
+            border-bottom: 1px solid var(--cds-border-dark-02);
+        }
+        
+        .watson-dark-theme .cds-text-input::placeholder {
+            color: var(--cds-text-dark-placeholder);
+        }
+        
+        .watson-dark-theme .cds-text-input:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: -2px;
+        }
+        
+        .watson-dark-theme .cds-text-input:disabled {
+            background-color: var(--cds-field-dark-02);
+            border-bottom-color: var(--cds-border-dark-01);
+            color: var(--cds-text-disabled);
+        }
+
+
+        /* 다크 테마에서 셀렉트 박스 */
+        .watson-dark-theme .cds-select-input {
+            color: var(--cds-text-dark-primary);
+            background-color: var(--cds-field-dark-01);
+            border-bottom: 1px solid var(--cds-border-dark-02);
+        }
+        
+        .watson-dark-theme .cds-select-input:focus {
+            outline: 2px solid var(--cds-focus);
+            outline-offset: -2px;
+        }
+
+        /* 다크 테마에서 체크박스 */
+        .watson-dark-theme .cds-checkbox {
+            background-color: var(--cds-field-dark-01);
+            border-color: var(--cds-border-dark-02);
+        }
+        
+        .watson-dark-theme .cds-checkbox:checked {
+            background-color: var(--cds-interactive);
+            border-color: var(--cds-interactive);
+        }
+        
+        .watson-dark-theme .cds-checkbox-label {
+            color: var(--cds-text-dark-secondary);
+        }
+        
+        
+        
+        /* 다크 테마에서 라벨 */
+        .watson-dark-theme .cds-label {
+            color: var(--cds-text-dark-secondary);
+        }
+        
+
